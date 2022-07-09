@@ -1,1 +1,25 @@
-<p>bookmarks works!</p>
+
+<mat-card class="w90">
+
+  <mat-card-title>Bookmark</mat-card-title>
+
+
+
+<div class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput placeholder="Ex. Pizza"
+           [(ngModel)]="bookmark.name"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>URL</mat-label>
+    <input matInput placeholder="http"
+           [(ngModel)]="bookmark.url">
+  </mat-form-field>
+</div>
+
+<button mat-raised-button color="accent" (click)="save()" >Save</button>
+
+</mat-card>
