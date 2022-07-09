@@ -18,13 +18,24 @@ export class EntityBackendService<E extends Entity> {
   loadEntity(e: E): Observable<E> {
     if (e.id === undefined)
       throw Error("id not defined");
-    let apiName = "/api/" + this.determineName(e) +"/"
+    let apiName = "/api/" + this.determineName(e) + "/"
     return this.http.get<E>(this.apiUrl + apiName + e.id)
   }
 
   saveEntity(t: E): Observable<E> {
-    let apiName = "/api/" + this.determineName(t) +"/"
-    return this.http.put<E>(this.apiUrl + apiName + t.id, t)
+    console.log(t.id)
+    let apiName = "/api/" + this.determineName(t) + "/"
+    if (t.id === undefined)
+      return this.http.post<E>(this.apiUrl + apiName, t)
+    else
+      return this.http.put<E>(this.apiUrl + apiName + t.id, t)
+  }
+
+  deleteEntity(e: E) {
+    if (e.id === undefined)
+      throw Error("id not defined");
+    let apiName = "/api/" + this.determineName(e) + "/"
+    return this.http.delete<E>(this.apiUrl + apiName + e.id)
   }
 
   determineName(t: E) {

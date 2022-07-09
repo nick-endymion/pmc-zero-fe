@@ -1,6 +1,6 @@
 export class Entity {
 
-  id: number;
+  id: number |undefined;
   // className: string;
 
   constructor(id: number) {
