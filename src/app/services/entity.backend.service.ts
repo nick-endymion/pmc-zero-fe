@@ -15,6 +15,11 @@ export class EntityBackendService<E extends Entity> {
   constructor(private http: HttpClient, private router: Router) {
   }
 
+  searchEntity(e: E, searchTerm: string): Observable<Array<E>> {
+    let apiName = "/api/" + this.determineName(e) + "/"
+    return this.http.get<Array<E>>(this.apiUrl + apiName+"?searchTerm="+searchTerm)
+  }
+
   loadEntity(e: E): Observable<E> {
     if (e.id === undefined)
       throw Error("id not defined");

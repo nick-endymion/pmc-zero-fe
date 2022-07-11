@@ -1,10 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
 import {Bookmark} from "../models/bookmark";
-import {FormsModule} from '@angular/forms';
-import {NgModule} from '@angular/core'
 import {EntityBackendService} from "../services/entity.backend.service";
-import {async} from "rxjs";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DatePipe} from "@angular/common";
+
 
 @Component({
   selector: 'app-bookmarks',
@@ -15,32 +14,52 @@ export class BookmarksComponent implements OnInit {
 
   bookmark: Bookmark;
 
-  constructor(private bookmarkService: EntityBackendService<Bookmark>) {
-    this.bookmark = new Bookmark(9, "", "", undefined);
+  constructor(private bookmarkService: EntityBackendService<Bookmark>,
+              private route: ActivatedRoute,
+              private router: Router
+  ) {
+    this.bookmark = new Bookmark(undefined, "", "", undefined);
+    this.route.params.subscribe(params => {
+        console.log(params);
+        let id = +params['id'];
+        if (id) {
+          this.bookmark.id = id;
+          this.get();
+        }
+      }
+    );
   }
 
+
   ngOnInit(): void {
-    this.get()
+    // this.get()
   }
 
   newBookmark(b: Bookmark): Bookmark {
     console.log("ID " + b.id)
-    return new Bookmark(b.id, b.name, b.url, b.mediumId);
+    let constructedBookmark = new Bookmark(b.id, b.name, b.url, b.mediumId);
+    constructedBookmark.created_at = b.created_at;
+    constructedBookmark.updated_at = b.updated_at;
+    return constructedBookmark;
   }
 
   get(): void {
     console.log("get ID " + this.bookmark.id)
     this.bookmarkService.loadEntity(this.bookmark).subscribe(bookmark => this.bookmark = this.newBookmark(bookmark));
-
   }
 
   save(): void {
     console.log("save ID " + this.bookmark.id)
-    this.bookmarkService.saveEntity(this.bookmark).subscribe((bookmark: Bookmark) => this.bookmark = this.newBookmark(bookmark))
+    this.bookmarkService.saveEntity(this.bookmark).subscribe((bookmark: Bookmark) => {
+      this.bookmark = this.newBookmark(bookmark)
+      this.router.navigate(['/bookmarks', this.bookmark.id])
+    })
+
   }
 
   new(): void {
     this.bookmark = new Bookmark(undefined, "", "", undefined);
+    this.router.navigate(['/bookmarks'])
   }
 
   delete(): void {

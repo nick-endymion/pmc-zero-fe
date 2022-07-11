@@ -12,11 +12,14 @@ import {FormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
 import {HttpClientModule} from "@angular/common/http";
 import {MatButtonModule} from "@angular/material/button";
+import { BookmarkListComponent } from './bookmark-list/bookmark-list.component';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookmarksComponent
+    BookmarksComponent,
+    BookmarkListComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +27,7 @@ import {MatButtonModule} from "@angular/material/button";
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
+    CommonModule,
 
     MatIconModule,
     MatToolbarModule,
