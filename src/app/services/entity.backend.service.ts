@@ -17,14 +17,14 @@ export class EntityBackendService<E extends Entity> {
 
   searchEntity(e: E, searchTerm: string): Observable<Array<E>> {
     let apiName = "/api/" + this.determineName(e) + "/"
-    return this.http.get<Array<E>>(this.apiUrl + apiName+"?searchTerm="+searchTerm)
+    return this.http.get<Array<E>>(this.apiUrl + apiName + "?searchTerm=" + searchTerm)
   }
 
-  loadEntity(e: E): Observable<E> {
+  loadEntity(e: E, suffix: string = ""): Observable<E> {
     if (e.id === undefined)
       throw Error("id not defined");
     let apiName = "/api/" + this.determineName(e) + "/"
-    return this.http.get<E>(this.apiUrl + apiName + e.id)
+    return this.http.get<E>(this.apiUrl + apiName + e.id + suffix)
   }
 
   saveEntity(t: E): Observable<E> {
@@ -47,5 +47,9 @@ export class EntityBackendService<E extends Entity> {
     return t.constructor.name.toLowerCase() + "s";
   }
 
+
+  loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {
+    return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
+  }
 
 }

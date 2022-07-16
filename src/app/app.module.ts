@@ -14,12 +14,22 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatButtonModule} from "@angular/material/button";
 import { BookmarkListComponent } from './bookmark-list/bookmark-list.component';
 import {CommonModule} from "@angular/common";
+import { MsetListComponent } from './mset-list/mset-list.component';
+import { MsetComponent } from './mset/mset.component';
+import { MsetVisualListComponent } from './mset-visual-list/mset-visual-list.component';
+import { MediaListComponent } from './media-list/media-list.component';
+import { TnsViewComponent } from './tns-view/tns-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookmarksComponent,
-    BookmarkListComponent
+    BookmarkListComponent,
+    MsetListComponent,
+    MsetComponent,
+    MsetVisualListComponent,
+    MediaListComponent,
+    TnsViewComponent
   ],
   imports: [
     BrowserModule,

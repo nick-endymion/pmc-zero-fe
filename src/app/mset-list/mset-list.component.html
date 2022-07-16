@@ -1,0 +1,35 @@
+<mat-card class="w90">
+
+  <mat-card-title>Media Set</mat-card-title>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Suche</mat-label>
+    <input matInput placeholder="nur Titel"
+           [(ngModel)]="searchTerm"
+           (ngModelChange)="this.fireInput.next($event)">
+  </mat-form-field>
+
+  <div width="500px">
+    <!--  <table class="table table-bordered table-condensed">-->
+    <table>
+      <tr>
+        <th width="10%"></th>
+        <th width="30%">Title</th>
+        <th width="60%">URL</th>
+        <th width="10%"></th>
+        <th width="10%"></th>
+      </tr>
+      <tr *ngFor="let mset of msets">
+        <ng-container>
+          <td><a [routerLink]="['/msets', mset.id]">{{mset.id}}</a></td>
+          <td><a [routerLink]="['/msets', mset.id]">{{mset.name}}</a></td>
+          <td><a href='http://localhost:8080/api/msets/{{mset.id}}/tns/html' target="_blank">Link to TNs-Page</a></td>
+<!--          <td><a href='{{b.url}}' target="_blank">{{b.url}}</a></td>-->
+          <!--        <td><ng-container *ngIf="b.folder_id">-->
+          <!--          <a [routerLink]="['/folders', b.folder_id || 0]">folder</a></ng-container></td>-->
+          <!--        <td><a [routerLink]="['/scanner']"  [queryParams]="{url: b.url}">Scan</a></td>-->
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+</mat-card>

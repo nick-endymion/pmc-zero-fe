@@ -1,0 +1,27 @@
+<mat-card class="w90">
+
+  <mat-card-title>Mset</mat-card-title>
+
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="Ex. Pizza"
+             [(ngModel)]="mset.name"
+      >
+    </mat-form-field>
+  </div>
+  <div> Created at: {{mset.created_at|date: 'full' : 'de'}}</div>
+
+  <div> Updated at: {{mset.updated_at|date: 'd,m, y, h:mm:ss z'}}</div>
+
+  <button mat-raised-button color="warn" (click)="save()">Save</button>
+  <button mat-raised-button color="primary" (click)="new()">New</button>
+  <button mat-raised-button color="warn" (click)="delete()">Delete</button>
+
+  <button mat-raised-button color="info" (click)="showTnView()">Show TNs</button>
+
+</mat-card>
+
+<app-tns-view *ngIf="tnView" [ressourceUrlsList]="ressourceUrlsList"></app-tns-view>
+<app-media-list [media]="mset.media"></app-media-list>
