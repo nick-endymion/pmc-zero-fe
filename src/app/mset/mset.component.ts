@@ -39,7 +39,6 @@ export class MsetComponent implements OnInit {
   }
 
   newMset(b: Mset): Mset {
-    console.log("ID " + b.id)
     let constructedmset = new Mset(b.id, b.name);
     constructedmset.media = b.media;
     constructedmset.created_at = b.created_at;

@@ -30,7 +30,7 @@ export class EntityBackendService<E extends Entity> {
   saveEntity(t: E): Observable<E> {
     console.log(t.id)
     let apiName = "/api/" + this.determineName(t) + "/"
-    if (t.id === undefined)
+    if (t.id === undefined || t.id === null)
       return this.http.post<E>(this.apiUrl + apiName, t)
     else
       return this.http.put<E>(this.apiUrl + apiName + t.id, t)

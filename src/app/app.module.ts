@@ -19,6 +19,7 @@ import { MsetComponent } from './mset/mset.component';
 import { MsetVisualListComponent } from './mset-visual-list/mset-visual-list.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { TnsViewComponent } from './tns-view/tns-view.component';
+import { SerializedScannerComponent } from './serialized-scanner/serialized-scanner.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TnsViewComponent } from './tns-view/tns-view.component';
     MsetComponent,
     MsetVisualListComponent,
     MediaListComponent,
-    TnsViewComponent
+    TnsViewComponent,
+    SerializedScannerComponent
   ],
   imports: [
     BrowserModule,
