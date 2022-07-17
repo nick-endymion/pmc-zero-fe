@@ -28,6 +28,8 @@ export class MsetComponent implements OnInit {
         if (id) {
           this.mset.id = id;
           this.get();
+          if (this.tnView)
+            this.showTnView()
         }
       }
     );
@@ -76,7 +78,11 @@ export class MsetComponent implements OnInit {
   showTnView() {
     this.tnView = true;
     this.ressourceUrlsEntityBackendService.loadEntityList(this.mset.id!!, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrlsList = r);
+  }
 
+  shift(steps: number) {
+    let nextId = this.mset.id!! + steps
+    this.router.navigate(['/msets', nextId])
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-card class="w90">
+<mat-card class="w90" *ngIf="!tnView">
 
   <mat-card-title>Mset</mat-card-title>
 
@@ -22,6 +22,11 @@
   <button mat-raised-button color="info" (click)="showTnView()">Show TNs</button>
 
 </mat-card>
+<div *ngIf="tnView"><span (click)="tnView=!tnView" class="top" > MSET: {{mset.name}} </span>
+<span class="topRight">
+  <button class="topRigt" mat-mini-fab color="primary" (click)="shift(-1)"> <<</button>
+  <button class="topRigh" mat-mini-fab color="primary" (click)="shift(+1)"> >></button>
+</span></div>
 
 <app-tns-view *ngIf="tnView" [ressourceUrlsList]="ressourceUrlsList"></app-tns-view>
-<app-media-list [media]="mset.media"></app-media-list>
+<app-media-list *ngIf="!tnView"   [media]="mset.media"></app-media-list>

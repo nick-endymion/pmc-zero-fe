@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Mset} from "../models/mset";
 import {debounceTime, distinctUntilChanged, Subject} from "rxjs";
 import {EntityBackendService} from "../services/entity.backend.service";
+import {RessourceUrls} from "../models/ressourceUrls";
 
 @Component({
   selector: 'app-mset-list',
@@ -16,7 +17,11 @@ export class MsetListComponent implements OnInit {
   fireInput = new Subject<string>();
   spinner = false;
 
-  constructor(private msetService: EntityBackendService<Mset>) {
+  ressourceUrlsList: RessourceUrls[] = [];
+
+  constructor(private msetService: EntityBackendService<Mset>,
+              private ressourceUrlsEntityBackendService: EntityBackendService<RessourceUrls>
+  ) {
   }
 
   ngOnInit(): void {
@@ -38,5 +43,13 @@ export class MsetListComponent implements OnInit {
     this.msetService.searchEntity(this.mset, this.searchTerm).subscribe(msets => this.msets = msets);
   }
 
+  showTnView(id: number) {
+    // this.tnView = true;
+    this.ressourceUrlsEntityBackendService.loadEntityList(id, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrlsList = r);
+  }
+
+  showTnInlet() {
+
+  }
 
 }
