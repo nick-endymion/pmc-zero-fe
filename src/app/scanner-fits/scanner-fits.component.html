@@ -1,0 +1,23 @@
+<mat-card class="w90">
+
+  <mat-card-title>Fitting Scanners</mat-card-title>
+
+  <div width="500px">
+    <!--  <table class="table table-bordered table-condensed">-->
+    <table>
+      <tr>
+        <th width="30%">Title</th>
+        <th width="60%">Regex</th>
+      </tr>
+      <tr *ngFor="let s of scannerShorts">
+        <ng-container>
+          <td><a [routerLink]="['/scanners', s.id]">{{s.name}}</a></td>
+          <td>{{s.regex}}</td>
+          <!--        <td><ng-container *ngIf="b.folder_id">-->
+          <!--          <a [routerLink]="['/folders', b.folder_id || 0]">folder</a></ng-container></td>-->
+          <!--        <td><a [routerLink]="['/scanner']"  [queryParams]="{url: b.url}">Scan</a></td>-->
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+</mat-card>
