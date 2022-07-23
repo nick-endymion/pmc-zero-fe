@@ -1,6 +1,9 @@
 <mat-card class="w90">
 
-  <mat-card-title>Bookmark</mat-card-title>
+  <mat-card-title>Bookmark
+    <a href="{{bookmark.url}}">
+      <mat-icon>visibility</mat-icon></a>
+    </mat-card-title>
 
 
   <div class="example-form">
@@ -17,12 +20,18 @@
              [(ngModel)]="bookmark.url">
     </mat-form-field>
   </div>
-  <div> Created at: {{bookmark.created_at|date: 'full' : 'de'}}</div>
+
+  <div *ngIf="bookmark.id !== undefined">
+    <div> Created at: {{bookmark.created_at|date: 'full' : 'de'}}</div>
 
   <div> Updated at: {{bookmark.updated_at|date: 'd,m, y, h:mm:ss z'}}</div>
 
-  <button mat-raised-button color="accent" (click)="save()">Save</button>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
   <button mat-raised-button color="primary" (click)="new()">New</button>
   <button mat-raised-button color="accent" (click)="delete()">Delete</button>
+  </div>
+  <div *ngIf="bookmark.id === undefined">
+    <button mat-raised-button color="accent" (click)="save()">Save</button>
+  </div>
 
 </mat-card>

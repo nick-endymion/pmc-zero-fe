@@ -28,6 +28,19 @@ export class BookmarksComponent implements OnInit {
         }
       }
     );
+
+    this.route.queryParams.subscribe( params => {
+        let url = params['url'];
+        let title = params['title'];
+        if (url) {
+          this.bookmark.url = url;
+          this.bookmark.name = title;
+          console.log("url");
+          console.log(this.bookmark.url);
+        }
+      }
+    )
+
   }
 
 
