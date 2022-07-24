@@ -19,6 +19,7 @@ export class BookmarksComponent implements OnInit {
               private router: Router
   ) {
     this.bookmark = new Bookmark(undefined, "", "", undefined);
+    bookmarkService.setApiName(this.bookmark)
     this.route.params.subscribe(params => {
         console.log(params);
         let id = +params['id'];
@@ -29,14 +30,13 @@ export class BookmarksComponent implements OnInit {
       }
     );
 
-    this.route.queryParams.subscribe( params => {
+    this.route.queryParams.subscribe(params => {
         let url = params['url'];
         let title = params['title'];
         if (url) {
+          this.findByUrl(url)
           this.bookmark.url = url;
           this.bookmark.name = title;
-          console.log("url");
-          console.log(this.bookmark.url);
         }
       }
     )
@@ -81,6 +81,19 @@ export class BookmarksComponent implements OnInit {
 
 
   getTitle() {
+  }
+
+
+  findByUrl(url: string) {
+    this.bookmarkService.findEntityBy("url", url).subscribe((bookmarks) => this.handle(bookmarks))
+  }
+
+  handle(b: Bookmark[]) {
+    if (b.length === 0)
+      return
+    if (b.length > 1)
+      alert("Already more than one Bookmarks exist for this URL. Taking the first.")
+    this.bookmark = this.newBookmark(b[0]);
   }
 
 }

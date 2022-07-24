@@ -11,8 +11,13 @@ import {Entity} from "../models/entity";
 export class EntityBackendService<E extends Entity> {
 
   apiUrl = environment.baseUrl;
+  apiName = "";
 
   constructor(private http: HttpClient, private router: Router) {
+  }
+
+  setApiName(object: Object) {
+    this.apiName = "/api/" + this.determineName(object) + "/"
   }
 
   searchEntity(e: E, searchTerm: string): Observable<Array<E>> {
@@ -43,13 +48,24 @@ export class EntityBackendService<E extends Entity> {
     return this.http.delete<E>(this.apiUrl + apiName + e.id)
   }
 
-  determineName(t: E) {
+  determineName(t: object) {
     return t.constructor.name.toLowerCase() + "s";
   }
 
 
   loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {
     return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
+  }
+
+  findEntityBy(attribute: string, value: string): Observable<Array<E>> {
+    return this.http.get<Array<E>>(this.apiUrl + this.apiName + "?" + attribute + "=" + value)
+  }
+
+  loadOtherEntity(id: number, suffix: string = "", attr: string = "", val: string = ""): Observable<E> {
+    // if (input.id === undefined)
+    //   throw Error("id not defined");
+    let requestParams = attr.length > 0 ? ("?" + attr +"=" + val) : "";
+    return this.http.get<E>(this.apiUrl + this.apiName + id + suffix + requestParams)
   }
 
 }
