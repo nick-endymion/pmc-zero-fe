@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {EntityBackendService} from "../services/entity.backend.service";
-import {Bookmark} from "../models/bookmark";
 import {ScannerShort} from "../models/scannerShort";
-import {find} from "rxjs";
 import {SerializedScanner} from "../models/serialzedScanner";
 import {Mset} from "../models/mset";
+import {Location} from "../models/location";
+import {ScanningResult} from "../models/ScanningResult";
 
 @Component({
   selector: 'app-scanner-fits',
@@ -17,9 +17,10 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
   scannerShorts: ScannerShort[] = [];
   ssdummy: SerializedScanner = new SerializedScanner(0, "")
   mset: Mset = new Mset(0, "")
+  locations: Location[] = [];
 
   constructor(private scannerService: EntityBackendService<ScannerShort>,
-              private scannerService2: EntityBackendService<Mset>
+              private scannerService2: EntityBackendService<ScanningResult>
   ) {
     this.scannerService2.setApiName(this.ssdummy)
   }
@@ -41,7 +42,10 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
 
   scan(id: number) {
     this.scannerService2.loadOtherEntity(id, "/scan", "url", this.url)
-      .subscribe(mset => this.mset = Mset.copy(mset))
+      .subscribe(scanningResult => {
+        this.mset = Mset.copy(scanningResult.mset);
+        this.locations = scanningResult.locations;
+      });
   }
 
 }
