@@ -37,3 +37,6 @@
 </mat-card>
 
 <app-scanner-fits [url]="bookmark.url"></app-scanner-fits>
+<div *ngIf="checkMset()">
+<app-mset [mset]="scannerFitsComponent?.mset!!"> </app-mset>
+</div>

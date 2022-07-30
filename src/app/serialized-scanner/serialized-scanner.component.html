@@ -1,26 +1,38 @@
 <!--<form class="example-form">-->
-    <mat-form-field class="example-full-width" appearance="fill">
-      <mat-label>Name</mat-label>
-      <input matInput placeholder="Ex. Pizza" value="Sushi"
-             [(ngModel)]="serializedScanner.name">
-    </mat-form-field>
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Regex</mat-label>
-    <input matInput placeholder="Ex. Pizza"
-           [(ngModel)]="serializedScanner.regex">
-  </mat-form-field>
-<mat-form-field class="example-full-width" appearance="fill">
-  <mat-label>Example URL</mat-label>
-  <input matInput placeholder="Ex. Pizza"
-         [(ngModel)]="serializedScanner.example">
-</mat-form-field>
+<div style="width:99%">
+  <div style="float:left; display:inline;width:40%">
+    <div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Ex. Pizza" value="Sushi"
+               [(ngModel)]="serializedScanner.name">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Regex</mat-label>
+        <input matInput placeholder="Ex. Pizza"
+               [(ngModel)]="serializedScanner.regex">
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Example URL</mat-label>
+        <input matInput placeholder="Ex. Pizza"
+               [(ngModel)]="serializedScanner.example">
+      </mat-form-field>
+    </div>
+  </div>
 
-  <mat-form-field class="example-full-width" appearance="fill">
-    <mat-label>Scanner Definition</mat-label>
-    <textarea matInput placeholder="Enter as JSON" name="message" rows="12"
-              [(ngModel)]="serializedScanner.serialization"></textarea>
-  </mat-form-field>
-  <button mat-raised-button color="warn" (click)="save()">Save</button>
+  <div style="float:left;display:inline;width:40%">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Scanner Definition</mat-label>
+      <textarea matInput placeholder="Enter as JSON" name="message" rows="30"
+                [(ngModel)]="serializedScanner.serialization"></textarea>
+    </mat-form-field>
+  </div>
+</div>
+<button mat-raised-button color="warn" (click)="save()">Save</button>
 <!--</form>-->
 
 <div *ngIf="errorMessage.length>0">

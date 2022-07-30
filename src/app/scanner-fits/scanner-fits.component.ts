@@ -40,7 +40,8 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
   }
 
   scan(id: number) {
-    this.scannerService2.loadOtherEntity(id, "/scan", "url", this.url).subscribe(mset => this.mset = mset)
+    this.scannerService2.loadOtherEntity(id, "/scan", "url", this.url)
+      .subscribe(mset => this.mset = Mset.copy(mset))
   }
 
 }

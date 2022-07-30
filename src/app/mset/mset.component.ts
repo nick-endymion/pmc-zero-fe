@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {EntityBackendService} from "../services/entity.backend.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Mset} from "../models/mset";
@@ -11,6 +11,7 @@ import {RessourceUrls} from "../models/ressourceUrls";
 })
 export class MsetComponent implements OnInit {
 
+  @Input()
   mset: Mset;
   ressourceUrlsList: RessourceUrls[] = [];
   tnView = false;
@@ -22,10 +23,15 @@ export class MsetComponent implements OnInit {
     private router: Router
   ) {
     this.mset = new Mset(undefined, "");
+  }
+
+
+  ngOnInit(): void {
+    // this.get()
     this.route.params.subscribe(params => {
         console.log(params);
         let id = +params['id'];
-        if (id) {
+        if (this.mset.name.length == 0 && id) {
           this.mset.id = id;
           this.get();
           if (this.tnView)
@@ -33,11 +39,6 @@ export class MsetComponent implements OnInit {
         }
       }
     );
-  }
-
-
-  ngOnInit(): void {
-    // this.get()
   }
 
   newMset(b: Mset): Mset {

@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Bookmark} from "../models/bookmark";
 import {EntityBackendService} from "../services/entity.backend.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DatePipe} from "@angular/common";
+import {Mset} from "../models/mset";
+import {ScannerFitsComponent} from "../scanner-fits/scanner-fits.component";
 
 
 @Component({
@@ -13,6 +15,8 @@ import {DatePipe} from "@angular/common";
 export class BookmarksComponent implements OnInit {
 
   bookmark: Bookmark;
+  @ViewChild(ScannerFitsComponent)
+  scannerFitsComponent: ScannerFitsComponent | undefined;
 
   constructor(private bookmarkService: EntityBackendService<Bookmark>,
               private route: ActivatedRoute,
@@ -94,6 +98,13 @@ export class BookmarksComponent implements OnInit {
     if (b.length > 1)
       alert("Already more than one Bookmarks exist for this URL. Taking the first.")
     this.bookmark = this.newBookmark(b[0]);
+  }
+
+  checkMset(): boolean {
+    if (this.scannerFitsComponent != undefined) {
+      return this.scannerFitsComponent.mset.media.length > 0
+    }
+    return false;
   }
 
 }

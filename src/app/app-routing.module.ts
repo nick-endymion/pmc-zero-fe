@@ -13,7 +13,7 @@ const routes: Routes = [
   {path: 'bookmark-list', component: BookmarkListComponent},
   {path: 'mset-list', component: MsetListComponent},
   {path: 'msets/:id', component: MsetComponent},
-  {path: 'serializedScanner/:id', component: SerializedScannerComponent},
+  {path: 'scanner-units/:id', component: SerializedScannerComponent},
 ];
 
 @NgModule({

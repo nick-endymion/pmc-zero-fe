@@ -15,4 +15,11 @@ export class Mset implements Entity{
     this.name = name;
   }
 
+  static copy(mset: Mset) : Mset{
+    let ms = new Mset(mset.id, mset.name)
+    ms.media = mset.media
+    return ms
+  }
+
+
 }
