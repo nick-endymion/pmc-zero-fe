@@ -61,10 +61,16 @@ export class EntityBackendService<E extends Entity> {
     return this.http.get<Array<E>>(this.apiUrl + this.apiName + "?" + attribute + "=" + value)
   }
 
+  loadOtherEntit(e: Entity, suffix: string = "", attr: string = "", val: string = ""): Observable<Entity> {
+    let requestParams = attr.length > 0 ? ("?" + attr + "=" + val) : "";
+    let apiName = "/api/" + this.determineName(e) + "/"
+    return this.http.get<E>(this.apiUrl + apiName + e.id + suffix + requestParams)
+  }
+
   loadOtherEntity(id: number, suffix: string = "", attr: string = "", val: string = ""): Observable<E> {
     // if (input.id === undefined)
     //   throw Error("id not defined");
-    let requestParams = attr.length > 0 ? ("?" + attr +"=" + val) : "";
+    let requestParams = attr.length > 0 ? ("?" + attr + "=" + val) : "";
     return this.http.get<E>(this.apiUrl + this.apiName + id + suffix + requestParams)
   }
 

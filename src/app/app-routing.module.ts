@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'bookmarks/:id', component: BookmarksComponent},
   {path: 'bookmark-list', component: BookmarkListComponent},
   {path: 'mset-list', component: MsetListComponent},
-  {path: 'msets/:id', component: MsetComponent},
+  {path: 'msets/:msetid', component: MsetComponent},
   {path: 'scanner-units/:id', component: SerializedScannerComponent},
 ];
 

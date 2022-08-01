@@ -13,7 +13,7 @@ export class MsetComponent implements OnInit {
 
   @Input()
   mset: Mset;
-  ressourceUrlsList: RessourceUrls[] = [];
+  ressourceUrls: RessourceUrls[] = [];
   tnView = false;
 
   constructor(
@@ -30,8 +30,9 @@ export class MsetComponent implements OnInit {
     // this.get()
     this.route.params.subscribe(params => {
         console.log(params);
-        let id = +params['id'];
-        if (this.mset.name.length == 0 && id) {
+        let id = +params['msetid'];
+        if (id) {
+        // if (this.mset.name.length == 0 && id) {
           this.mset.id = id;
           this.get();
           if (this.tnView)
@@ -78,7 +79,7 @@ export class MsetComponent implements OnInit {
 
   showTnView() {
     this.tnView = true;
-    this.ressourceUrlsEntityBackendService.loadEntityList(this.mset.id!!, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrlsList = r);
+    this.ressourceUrlsEntityBackendService.loadEntityList(this.mset.id!!, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrls = r);
   }
 
   shift(steps: number) {

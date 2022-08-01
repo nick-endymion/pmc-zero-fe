@@ -18,11 +18,14 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
   ssdummy: SerializedScanner = new SerializedScanner(0, "")
   mset: Mset = new Mset(0, "")
   locations: Location[] = [];
+  commonUrlStart = "";
 
   constructor(private scannerService: EntityBackendService<ScannerShort>,
-              private scannerService2: EntityBackendService<ScanningResult>
+              private scannerService2: EntityBackendService<ScanningResult>,
+              private locationService: EntityBackendService<Location>
   ) {
     this.scannerService2.setApiName(this.ssdummy)
+    this.locationService.setApiName(new Location(undefined, "", ""))
   }
 
   ngOnInit(): void {
@@ -41,11 +44,27 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
   }
 
   scan(id: number) {
-    this.scannerService2.loadOtherEntity(id, "/scan", "url", this.url)
-      .subscribe(scanningResult => {
-        this.mset = Mset.copy(scanningResult.mset);
-        this.locations = scanningResult.locations;
-      });
+    this.scannerService2.loadOtherEntit(new SerializedScanner(id, ""), "/scan", "url", this.url)
+      .subscribe(
+        scanningResult => {
+          let sc = scanningResult as ScanningResult
+          this.mset = Mset.copy(sc.mset);
+          this.commonUrlStart = sc.commonUrlStart;
+          this.locations = sc.locations;
+        }
+      )
+    ;
   }
 
+  createDefaultLocation() {
+    let regex = /https?:\/\/[^\/]*/g
+    let result = this.url.match(regex);
+    if (result) {
+      let url = result[0];
+      alert(url);
+      let location = new Location(undefined, url, url);
+      this.locationService.saveEntity(location).subscribe( location => {})
+
+    }
+  }
 }
