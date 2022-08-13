@@ -5,6 +5,8 @@ import {SerializedScanner} from "../models/serialzedScanner";
 import {Mset} from "../models/mset";
 import {Location} from "../models/location";
 import {ScanningResult} from "../models/ScanningResult";
+import {DoubleEntityBackendService} from "../services/double.entity.backend.service";
+import {SourceToScan} from "../models/sourceToScan";
 
 @Component({
   selector: 'app-scanner-fits',
@@ -22,7 +24,8 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
 
   constructor(private scannerService: EntityBackendService<ScannerShort>,
               private scannerService2: EntityBackendService<ScanningResult>,
-              private locationService: EntityBackendService<Location>
+              private locationService: EntityBackendService<Location>,
+              private  doubleEntityBackendService: DoubleEntityBackendService<SourceToScan, Mset>
   ) {
     this.scannerService2.setApiName(this.ssdummy)
     this.locationService.setApiName(new Location(undefined, "", ""))
@@ -42,6 +45,15 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
   findScanner() {
     this.scannerService.searchEntity(this.ssdummy, this.url).subscribe(scanners => this.scannerShorts = scanners)
   }
+
+  // scanNew(scannerId: number) {
+  //   let sts = new SourceToScan(scannerId)
+  //   sts.url = this.url;
+  //   this.doubleEntityBackendService.loadEntity(sts, this.mset, "/scan").subscribe(
+  //
+  //   )
+  // }
+  //
 
   scan(id: number) {
     this.scannerService2.loadOtherEntit(new SerializedScanner(id, ""), "/scan", "url", this.url)

@@ -4,11 +4,12 @@ import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Entity} from "../models/entity";
+import {getOutputHashFormat} from "@angular-devkit/build-angular/src/webpack/utils/helpers";
 
 @Injectable({
   providedIn: 'root'
 })
-export class DoubleEntityBackendService<E extends Entity, O extends Entity> {
+export class DoubleEntityBackendService<Inp, Out extends Entity> {
 
   apiUrl = environment.baseUrl;
   apiName = "";
@@ -16,20 +17,14 @@ export class DoubleEntityBackendService<E extends Entity, O extends Entity> {
   constructor(private http: HttpClient, private router: Router) {
   }
 
-  setApiName(e: E) {
-    this.apiName = "/api/" + this.determineName(e) + "/"
-  }
-
-  determineName(t: E) {
+  determineName(t: Out) {
     return t.constructor.name.toLowerCase() + "s";
   }
 
 
-  loadEntity(input: E, suffix: string = "", ouput: O): Observable<O> {
-    if (input.id === undefined)
-      throw Error("id not defined");
-    let apiName = "/api/" + this.determineName(input) + "/"
-    return this.http.get<O>(this.apiUrl + apiName + input.id + suffix)
+  loadEntity(input: Inp, ouput: Out, suffix: string = ""): Observable<Out> {
+    let apiName = "/api/" + this.determineName(ouput) + "/"
+    return this.http.post<Out>(this.apiUrl + apiName + suffix, input)
   }
 
 

@@ -56,9 +56,9 @@ export class EntityBackendService<E extends Entity> {
 
 // -------------------------
 
-  loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {  //todo
-    return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
-  }
+  // loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {  //todo
+  //   return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
+  // }
 
   loadEntityListByIntity(e: Entity, suffix: string = ""): Observable<Array<E>> {
     let apiName = "/api/" + this.determineName(e) + "/"
@@ -80,8 +80,8 @@ export class EntityBackendService<E extends Entity> {
 
 }
 
-// Entity > CRUD
+// Entity > CRUD         >> okay
 // Entity1 > Entity2 POST
 //     STS > MSET
-// Entity1 > Entit2-List Get
+// Entity1 > Entit2-List Get  >> okay
 //     MSET > URL-List
