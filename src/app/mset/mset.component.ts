@@ -79,7 +79,8 @@ export class MsetComponent implements OnInit {
 
   showTnView() {
     this.tnView = true;
-    this.ressourceUrlsEntityBackendService.loadEntityList(this.mset.id!!, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrls = r);
+    // this.ressourceUrlsEntityBackendService.loadEntityList(this.mset.id!!, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrls = r);
+    this.ressourceUrlsEntityBackendService.loadEntityListByIntity(this.mset, "/ressources-urls").subscribe(r => this.ressourceUrls = r);
   }
 
   shift(steps: number) {

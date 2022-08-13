@@ -17,7 +17,7 @@ export class MsetListComponent implements OnInit {
   fireInput = new Subject<string>();
   spinner = false;
 
-  ressourceUrlsList: RessourceUrls[] = [];
+  ressourceUrls: RessourceUrls[] = [];
 
   constructor(private msetService: EntityBackendService<Mset>,
               private ressourceUrlsEntityBackendService: EntityBackendService<RessourceUrls>
@@ -43,9 +43,11 @@ export class MsetListComponent implements OnInit {
     this.msetService.searchEntity(this.mset, this.searchTerm).subscribe(msets => this.msets = msets);
   }
 
-  showTnView(id: number) {
+  showTnView(mset: Mset) {
     // this.tnView = true;
-    this.ressourceUrlsEntityBackendService.loadEntityList(id, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrlsList = r);
+    // this.ressourceUrlsEntityBackendService.loadEntityList(id, "/api/msets/", "/ressources-urls").subscribe(r => this.ressourceUrlsList = r);
+    let msetReal = new Mset(mset.id, mset.name)
+    this.ressourceUrlsEntityBackendService.loadEntityListByIntity(msetReal, "/ressources-urls").subscribe(r => this.ressourceUrls = r);
   }
 
   showTnInlet() {

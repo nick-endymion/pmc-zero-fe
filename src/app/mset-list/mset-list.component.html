@@ -24,7 +24,7 @@
         <ng-container>
           <td><a [routerLink]="['/msets', mset.id]">{{mset.id}}</a></td>
           <td><a [routerLink]="['/msets', mset.id]">{{mset.name}}</a></td>
-          <td><span (mouseover)="showTnView(mset.id!!)">{{mset.name}}</span></td>
+          <td><span (mouseover)="showTnView(mset)">{{mset.name}}</span></td>
           <td><a href='http://localhost:8080/api/msets/{{mset.id}}/tns/html' target="_blank">Link to TNs-Page</a></td>
 <!--          <td><a href='{{b.url}}' target="_blank">{{b.url}}</a></td>-->
           <!--        <td><ng-container *ngIf="b.folder_id">-->
@@ -36,4 +36,4 @@
   </div>
 </mat-card>
 
-<div class="rightBottom"> <img src="{{ressourceUrlsList[0]?.tnUrl}}"></div>
+<div class="rightBottom"> <img src="{{ressourceUrls[0]?.tnUrl}}"></div>

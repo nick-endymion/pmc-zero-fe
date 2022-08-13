@@ -89,7 +89,8 @@ export class BookmarksComponent implements OnInit {
 
 
   findByUrl(url: string) {
-    this.bookmarkService.findEntityBy("url", url).subscribe((bookmarks) => this.handle(bookmarks))
+    // this.bookmarkService.findEntityBy("url", url).subscribe((bookmarks) => this.handle(bookmarks))
+    this.bookmarkService.searchEntity(this.bookmark, url,"url").subscribe((bookmarks) => this.handle(bookmarks))
   }
 
   handle(b: Bookmark[]) {

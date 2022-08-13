@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Entity} from "../models/entity";
+import {ListKeyManager} from "@angular/cdk/a11y";
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,11 @@ export class EntityBackendService<E extends Entity> {
     this.apiName = "/api/" + this.determineName(object) + "/"
   }
 
-  searchEntity(e: E, searchTerm: string): Observable<Array<E>> {
+  searchEntity(e: E, searchTerm: string, attributeName: string = "searchTerm"): Observable<Array<E>> {
     let apiName = "/api/" + this.determineName(e) + "/"
-    return this.http.get<Array<E>>(this.apiUrl + apiName + "?searchTerm=" + searchTerm)
+    return this.http.get<Array<E>>(this.apiUrl + apiName + "?"+attributeName+"=" + searchTerm)
   }
+
 
   loadEntity(e: E, suffix: string = ""): Observable<E> {
     if (e.id === undefined)
@@ -52,13 +54,15 @@ export class EntityBackendService<E extends Entity> {
     return t.constructor.name.toLowerCase() + "s";
   }
 
+// -------------------------
 
-  loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {
+  loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {  //todo
     return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
   }
 
-  findEntityBy(attribute: string, value: string): Observable<Array<E>> {
-    return this.http.get<Array<E>>(this.apiUrl + this.apiName + "?" + attribute + "=" + value)
+  loadEntityListByIntity(e: Entity, suffix: string = ""): Observable<Array<E>> {
+    let apiName = "/api/" + this.determineName(e) + "/"
+    return this.http.get<Array<E>>(this.apiUrl + apiName + e.id + suffix)
   }
 
   loadOtherEntit(e: Entity, suffix: string = "", attr: string = "", val: string = ""): Observable<Entity> {
@@ -75,3 +79,9 @@ export class EntityBackendService<E extends Entity> {
   }
 
 }
+
+// Entity > CRUD
+// Entity1 > Entity2 POST
+//     STS > MSET
+// Entity1 > Entit2-List Get
+//     MSET > URL-List
