@@ -19,7 +19,7 @@ import { MsetComponent } from './mset/mset.component';
 import { MsetVisualListComponent } from './mset-visual-list/mset-visual-list.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { TnsViewComponent } from './tns-view/tns-view.component';
-import { SerializedScannerComponent } from './serialized-scanner/serialized-scanner.component';
+import { ScannerComponent } from './scanner/scanner.component';
 import { ScannerFitsComponent } from './scanner-fits/scanner-fits.component';
 
 @NgModule({
@@ -32,7 +32,7 @@ import { ScannerFitsComponent } from './scanner-fits/scanner-fits.component';
     MsetVisualListComponent,
     MediaListComponent,
     TnsViewComponent,
-    SerializedScannerComponent,
+    ScannerComponent,
     ScannerFitsComponent
   ],
   imports: [

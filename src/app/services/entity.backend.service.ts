@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {environment} from "../../environments/environment";
 import {Observable} from "rxjs";
 import {Entity} from "../models/entity";
-import {ListKeyManager} from "@angular/cdk/a11y";
 
 @Injectable({
   providedIn: 'root'
@@ -56,9 +55,9 @@ export class EntityBackendService<E extends Entity> {
 
 // -------------------------
 
-  loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {  //todo
-    return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
-  }
+  // loadEntityList(id: number, apiName: string, suffix: string = ""): Observable<Array<E>> {  //todo
+  //   return this.http.get<Array<E>>(this.apiUrl + apiName + id + suffix)
+  // }
 
   loadEntityListByIntity(e: Entity, suffix: string = ""): Observable<Array<E>> {
     let apiName = "/api/" + this.determineName(e) + "/"

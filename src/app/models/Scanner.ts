@@ -1,7 +1,7 @@
 import {Entity} from "./entity";
 import {Medium} from "./medium";
 
-export class SerializedScanner implements Entity{
+export class Scanner implements Entity{
 
   id: number |undefined;
   name: string;
@@ -17,11 +17,11 @@ export class SerializedScanner implements Entity{
     this.serialization = "";
   }
 
-  static copy(serializedScanner: SerializedScanner) : SerializedScanner{
-    let ss = new SerializedScanner(serializedScanner.id, serializedScanner.name)
-    ss.regex = serializedScanner.regex
-    ss.example = serializedScanner.example;
-    ss.serialization = serializedScanner.serialization;
+  static copy(scanner: Scanner) : Scanner{
+    let ss = new Scanner(scanner.id, scanner.name)
+    ss.regex = scanner.regex
+    ss.example = scanner.example;
+    ss.serialization = scanner.serialization;
     return ss
   }
 

@@ -26,13 +26,16 @@ Common Url-Start: {{commonUrlStart}}
     <table>
       <tr>
         <th width="30%">Location Name</th>
-        <th width="60%">Location Uri</th>
+        <th width="50%">Location Uri</th>
         <th width="10%">Scan</th>
+        <th width="10%">Scan and Save</th>
       </tr>
       <tr *ngFor="let location of locations">
         <ng-container>
           <td>{{location.name}}</td>
           <td>{{location.uri}}</td>
+          <td> <span (click)="scan2(location.id!!)"> Scan</span></td>
+          <td> <span (click)="scan2(location.id!!, true)"> Scan</span></td>
         </ng-container>
       </tr>
     </table>

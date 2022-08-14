@@ -5,21 +5,21 @@
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Ex. Pizza" value="Sushi"
-               [(ngModel)]="serializedScanner.name">
+               [(ngModel)]="scanner.name">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Regex</mat-label>
         <input matInput placeholder="Ex. Pizza"
-               [(ngModel)]="serializedScanner.regex">
+               [(ngModel)]="scanner.regex">
       </mat-form-field>
     </div>
     <div>
       <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Example URL</mat-label>
         <input matInput placeholder="Ex. Pizza"
-               [(ngModel)]="serializedScanner.example">
+               [(ngModel)]="scanner.example">
       </mat-form-field>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <mat-form-field class="example-full-width" appearance="fill">
       <mat-label>Scanner Definition</mat-label>
       <textarea matInput placeholder="Enter as JSON" name="message" rows="30"
-                [(ngModel)]="serializedScanner.serialization"></textarea>
+                [(ngModel)]="scanner.serialization"></textarea>
     </mat-form-field>
   </div>
 </div>
