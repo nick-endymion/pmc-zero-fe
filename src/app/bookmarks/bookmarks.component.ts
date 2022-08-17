@@ -2,9 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Bookmark} from "../models/bookmark";
 import {EntityBackendService} from "../services/entity.backend.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {DatePipe} from "@angular/common";
-import {Mset} from "../models/mset";
 import {ScannerFitsComponent} from "../scanner-fits/scanner-fits.component";
+import {Medium} from "../models/medium";
 
 
 @Component({
@@ -15,14 +14,17 @@ import {ScannerFitsComponent} from "../scanner-fits/scanner-fits.component";
 export class BookmarksComponent implements OnInit {
 
   bookmark: Bookmark;
+  // medium: Medium;
   @ViewChild(ScannerFitsComponent)
   scannerFitsComponent: ScannerFitsComponent | undefined;
 
   constructor(private bookmarkService: EntityBackendService<Bookmark>,
+              private mediumService: EntityBackendService<Medium>,
               private route: ActivatedRoute,
               private router: Router
   ) {
     this.bookmark = new Bookmark(undefined, "", "", undefined);
+    // this.medium = new Medium(undefined, "");
     bookmarkService.setApiName(this.bookmark)
     this.route.params.subscribe(params => {
         console.log(params);
@@ -57,12 +59,20 @@ export class BookmarksComponent implements OnInit {
     let constructedBookmark = new Bookmark(b.id, b.name, b.url, b.mediumId);
     constructedBookmark.created_at = b.created_at;
     constructedBookmark.updated_at = b.updated_at;
+    constructedBookmark.medium = b.medium;
+    console.log(b)
     return constructedBookmark;
   }
 
   get(): void {
     console.log("get ID " + this.bookmark.id)
-    this.bookmarkService.loadEntity(this.bookmark).subscribe(bookmark => this.bookmark = this.newBookmark(bookmark));
+    this.bookmarkService.loadEntity(this.bookmark)
+      .subscribe(bookmark => {
+        this.bookmark = this.newBookmark(bookmark)
+        // if (this.bookmark.mediumId !== undefined) {
+        //   this.loadMedium(this.bookmark.mediumId);
+        // }
+      });
   }
 
   save(): void {
@@ -90,7 +100,7 @@ export class BookmarksComponent implements OnInit {
 
   findByUrl(url: string) {
     // this.bookmarkService.findEntityBy("url", url).subscribe((bookmarks) => this.handle(bookmarks))
-    this.bookmarkService.searchEntity(this.bookmark, url,"url").subscribe((bookmarks) => this.handle(bookmarks))
+    this.bookmarkService.searchEntity(this.bookmark, url, "url").subscribe((bookmarks) => this.handle(bookmarks))
   }
 
   handle(b: Bookmark[]) {
@@ -107,5 +117,10 @@ export class BookmarksComponent implements OnInit {
     }
     return false;
   }
+
+  // loadMedium(mediumId: number) {
+  //   this.mediumService.loadEntity(this.medium).subscribe(
+  //     m => this.medium = m)
+  // }
 
 }

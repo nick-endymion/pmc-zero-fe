@@ -17,6 +17,8 @@ import {ScrapingService} from "../services/scraping.service";
 export class ScannerFitsComponent implements OnInit, OnChanges {
 
   @Input() url: string = "";
+  @Input() bookmarkId: number|undefined;
+
   scannerShorts: ScannerShort[] = [];
   ssdummy: Scanner = new Scanner(0, "")
   mset: Mset = new Mset(0, "")
@@ -52,7 +54,8 @@ export class ScannerFitsComponent implements OnInit, OnChanges {
     let sts = new SourceToScan(0)
     sts.locationId = locationId
     sts.scannerId = this.scannerId
-    sts.url = this.url
+    // sts.url = this.url
+    sts.bookmarkId = this.bookmarkId
     sts.persist = persist
     this.scrapingService.scrape(sts).subscribe(
       sc => {

@@ -3,6 +3,10 @@
   <mat-card-title>Bookmark
     <a href="{{bookmark.url}}">
       <mat-icon>visibility</mat-icon></a>
+    <a *ngIf="bookmark.medium?.mset" href="{{bookmark.url}}">
+        MSET </a>
+
+
     </mat-card-title>
 
 
@@ -36,7 +40,7 @@
 
 </mat-card>
 
-<app-scanner-fits [url]="bookmark.url"></app-scanner-fits>
+<app-scanner-fits [url]="bookmark.url" [bookmarkId]="bookmark.id"></app-scanner-fits>
 <div *ngIf="checkMset()">
 <app-mset [mset]="scannerFitsComponent?.mset!!"> </app-mset>
 </div>

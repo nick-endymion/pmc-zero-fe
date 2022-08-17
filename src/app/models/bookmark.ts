@@ -1,10 +1,12 @@
 import {Entity} from "./entity";
+import {Medium} from "./medium";
 
 export class Bookmark implements Entity{
 
   id: number |undefined;
   name: string;
   url: string;
+  medium: Medium | undefined;
   mediumId: number |undefined;
   created_at: Date | undefined;
   updated_at: Date | undefined;
